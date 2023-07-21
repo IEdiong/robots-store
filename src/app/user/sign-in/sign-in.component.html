@@ -18,5 +18,8 @@
     <div class="buttons">
       <button type="submit" class="button cta">Sign In</button>
     </div>
+    <div class="signInError" *ngIf="signInError">
+      Sign-in failed. Please try again.
+    </div>
   </form>
 </div>
