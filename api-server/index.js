@@ -21,6 +21,12 @@ const users = {
     email: "joe@joesrobotshop.com",
     password: "super-secret",
   },
+  "ediong@live.com": {
+    firstName: "Ediong",
+    lastName: "Joseph",
+    email: "ediong@live.com",
+    password: "password",
+  },
 };
 let cart = [];
 
