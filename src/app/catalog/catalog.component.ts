@@ -23,7 +23,10 @@ export class CatalogComponent implements OnInit {
   ngOnInit(): void {
     this.productSvc
       .getProducts()
-      .subscribe((products) => (this.products = products));
+      .subscribe({
+        next: (products) => (this.products = products),
+        error: (error) => console.log(error.message),
+      });
 
     this.route.queryParams.subscribe((params) => {
       this.filter = params['filter'] ?? '';
