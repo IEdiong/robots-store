@@ -8,12 +8,16 @@ import { IProduct } from '../catalog/product.model';
   providedIn: 'root',
 })
 export class CartService {
-  private cart: BehaviorSubject<IProduct[]> = new BehaviorSubject<IProduct[]>([]);
+  private cart: BehaviorSubject<IProduct[]> = new BehaviorSubject<IProduct[]>(
+    []
+  );
 
   constructor(private http: HttpClient) {
-    this.http.get<IProduct[]>('/api/cart').subscribe({
-      next: (cart) => this.cart.next(cart),
-    });
+    this.http
+      .get<IProduct[]>('https://robots-store.onrender.com/api/cart')
+      .subscribe({
+        next: (cart) => this.cart.next(cart),
+      });
   }
 
   getCart(): Observable<IProduct[]> {
@@ -23,16 +27,20 @@ export class CartService {
   add(product: IProduct) {
     const newCart = [...this.cart.getValue(), product];
     this.cart.next(newCart);
-    this.http.post('/api/cart', newCart).subscribe(() => {
-      console.log('added ' + product.name + ' to cart!');
-    });
+    this.http
+      .post('https://robots-store.onrender.com/api/cart', newCart)
+      .subscribe(() => {
+        console.log('added ' + product.name + ' to cart!');
+      });
   }
 
   remove(product: IProduct) {
     let newCart = this.cart.getValue().filter((i) => i !== product);
     this.cart.next(newCart);
-    this.http.post('/api/cart', newCart).subscribe(() => {
-      console.log('removed ' + product.name + ' from cart!');
-    });
+    this.http
+      .post('https://robots-store.onrender.com/api/cart', newCart)
+      .subscribe(() => {
+        console.log('removed ' + product.name + ' from cart!');
+      });
   }
 }

@@ -19,12 +19,20 @@ export class UserService {
   }
 
   signIn(credentials: IUserCredentials): Observable<IUser> {
-    return this.http
-      .post<IUser>('/api/sign-in', credentials)
-      .pipe(map((user: IUser) => {
-        this.user.next(user);
-        return user;
-      }));
+    return (
+      this.http
+        // .post<IUser>('/api/sign-in', credentials)
+        .post<IUser>(
+          'https://robots-store.onrender.com/api/sign-in',
+          credentials
+        )
+        .pipe(
+          map((user: IUser) => {
+            this.user.next(user);
+            return user;
+          })
+        )
+    );
   }
 
   signOut() {
